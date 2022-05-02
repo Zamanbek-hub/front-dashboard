@@ -3,20 +3,20 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
     { field: 'id', headerName: 'ID'},
-    { field: 'firstName', headerName: 'First name', width: 300 },
-    { field: 'lastName', headerName: 'Last name', width: 300},
+    { field: 'firstName', headerName: 'First name', width: 500 },
+    { field: 'lastName', headerName: 'Last name', width: 500},
     {
         field: 'age',
         headerName: 'Age',
         type: 'number',
-        width: 300,
+        width: 500,
     },
     {
         field: 'fullName',
         headerName: 'Full name',
         description: 'This column has a value getter and is not sortable.',
         sortable: false,
-        width: 320,
+        width: 400,
         valueGetter: (params) =>
             `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     },
