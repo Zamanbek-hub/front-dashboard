@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DoughnutChart from './doughnut_report/DoughnutChart';
 import LineChart from "./line_report/LineChart";
 import TableReport from "./table_report/TableReport";
+import Header from "../header/Header";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,6 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Detail() {
   return (
       <div className="container-fluid">
+          <Header />
           <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                   <Grid item xs={4}>

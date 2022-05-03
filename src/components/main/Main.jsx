@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Header from "../header/Header";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,7 +34,9 @@ const rows = [
 export default function Main() {
   return (
       <div className="container-fluid">
-        <TableContainer component={Paper} sx={{ width: '100%' }}>
+        <Header />
+        <div className="container">
+          <TableContainer component={Paper} sx={{ width: '100%' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -49,12 +52,13 @@ export default function Main() {
                   <TableCell component="th" scope="row">{row.name}</TableCell>
                   <TableCell align="right">{row.calories}</TableCell>
                   <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell component="a" align="right" href='google.com'>Profile</TableCell>
+                  <TableCell component="a" href='google.com'>Profile</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        </div>
       </div>
   );
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import ReactApexChart from 'react-apexcharts'
 
 const series = [{
@@ -36,12 +37,9 @@ const options = {
 
 function LineChart () {
     return (
-
         <div id="chart">
             <ReactApexChart options={options} series={series} type="line" height={500} />
         </div>
-
-
     );
 }
 
