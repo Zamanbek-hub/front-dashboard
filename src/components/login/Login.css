@@ -1,111 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    font-family: 'Nunito', sans-serif;
-    font-size: 22px;
-    color: #fff;
+.header_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem 0.5rem;
 }
 
 body {
     min-height: 100vh;
     /*background-color: dodgerblue;*/
+    background-color: #ffffff;
 }
 
-section {
-    width: 100%;
-    max-width: 420px;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1rem;
-    background-color: rgba(0,0,0,0.4);
-}
 
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex-grow: 1;
-    padding-bottom: 1rem;
-}
-
-a, a:visited {
-    color: #fff;
-}
-
-input[type="text"],
-input[type="password"],
-button,
-textarea {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
-}
-
-.title {
+.login_btn {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-label,
-button {
-  margin-top: 1rem;
+.wrapper {
+    margin-top: 80px;
+    margin-bottom: 80px;
 }
 
-button {
-  padding: 0.5rem;
+.form-signin {
+    width: 500px;
+    height: 300px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    -webkit-box-shadow: 0 4px 16px -1px gainsboro;
+    -moz-box-shadow: 0 4px 16px -1px gainsboro;
+    box-shadow: 0 4px 16px -1px gainsboro;
 }
 
-.instructions {
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
-    padding: 0.25rem;
+.login-custom-input {
+    border-color: rgb(0, 0, 0, 0.25);
+}
+
+.login-custom-input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.25);
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 30px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
     position: relative;
-    bottom: -10px;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-
-.instructions > svg {
-    margin-right: 0.25rem;
+.form-signin .form-control:focus {
+    z-index: 2;
 }
-
-.offscreen {
-    position: absolute;
-    left: -9999px;
+.form-signin input[type=text] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-
-.hide {
-    display: none;
-}
-
-.valid {
-    color: limegreen;
-    margin-left: 0.25rem;
-}
-
-.invalid {
-    color: red;
-    margin-left: 0.25rem;
-}
-
-.errmsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.line {
-    display: inline-block;
+.form-signin input[type=password] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
