@@ -24,11 +24,11 @@ function createData(name, calories, fat, carbs, page) {
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, "google.com"),
-  createData('Ice cream sandwich', 237, 9.0, 37, "google.com"),
-  createData('Eclair', 262, 16.0, 24, "google.com"),
-  createData('Cupcake', 305, 3.7, 67, "google.com"),
-  createData('Gingerbread', 356, 16.0, 49, "google.com"),
+  createData('Frozen yoghurt', 159, 6.0, 24, "/detail"),
+  createData('Ice cream sandwich', 237, 9.0, 37, "/detail"),
+  createData('Eclair', 262, 16.0, 24, "/detail"),
+  createData('Cupcake', 305, 3.7, 67, "/detail"),
+  createData('Gingerbread', 356, 16.0, 49, "/detail"),
 ];
 
 export default function Main() {
@@ -52,7 +52,7 @@ export default function Main() {
                   <TableCell component="th" scope="row">{row.name}</TableCell>
                   <TableCell align="right">{row.calories}</TableCell>
                   <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell component="a" href='google.com'>Profile</TableCell>
+                  <TableCell align="right"><a href={row.page} style={{color: 'black'}}>Profile</a></TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -1,7 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import logo from './logo.svg';
 import './App.css';
 import Main from "./components/main/Main";
 import Detail from "./components/detail/Detail";

@@ -9,6 +9,8 @@ import DoughnutChart from './doughnut_report/DoughnutChart';
 import LineChart from "./line_report/LineChart";
 import TableReport from "./table_report/TableReport";
 import Header from "../header/Header";
+import UploadModal from "./Upload/Upload";
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,10 +20,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
+
 export default function Detail() {
   return (
       <div className="container-fluid">
           <Header />
+          <UploadModal />
           <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                   <Grid item xs={4}>
@@ -36,22 +40,5 @@ export default function Detail() {
               </Grid>
           </Box>
       </div>
-      // <div className="container-fluid">
-      //     <div className="row" >
-      //         <div className="col-4">
-      //           <DoughnutChart style={{height: 500}}/>
-      //         </div>
-      //         <div  className="col-8">
-      //             <LineChart/>
-      //         </div>
-      //     </div>
-      //     <br/>
-      //     <div className="row">
-      //         <div className="col-12" style={{height: 400}}>
-      //
-      //             <TableReport />
-      //         </div>
-      //     </div>
-      // </div>
   )
 }
