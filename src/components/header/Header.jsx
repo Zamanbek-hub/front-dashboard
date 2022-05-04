@@ -17,6 +17,8 @@ import "./Header.css";
 
 
 function Header() {
+    const userName = localStorage.getItem('username');
+
     return (
         <header>
             <MDBNavbar expand='lg' className="header_style" light>
@@ -31,12 +33,12 @@ function Header() {
                     <div className='collapse navbar-collapse'>
                         <MDBNavbarNav className='mb-2 mb-lg-0'>
                             <MDBNavbarItem active>
-                                <MDBNavbarLink aria-current='page' href='#'>
+                                <MDBNavbarLink aria-current='page' href='/'>
                                     <MDBCardImage src={robot_logo} height='50px' width='50px'/>
                                 </MDBNavbarLink>
                             </MDBNavbarItem>
                             <MDBNavbarItem className="header_li" style={{marginLeft: '3%'}}>
-                                <MDBNavbarLink className="header_link" href='#'>Robots</MDBNavbarLink>
+                                <MDBNavbarLink className="header_link" href='/'>Robots</MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
                     </div>
@@ -48,7 +50,7 @@ function Header() {
                             {/*    </div>*/}
                             {/*</MDBNavbarItem>*/}
                             <MDBNavbarItem style={{marginRight: '3%'}}>
-                                <MDBNavbarLink className="header_link" href='#'>Zamanbek</MDBNavbarLink>
+                                <MDBNavbarLink className="header_link" href='#'>{userName}</MDBNavbarLink>
                             </MDBNavbarItem>
                         </MDBNavbarNav>
                     </div>

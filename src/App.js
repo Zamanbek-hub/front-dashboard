@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<UnAuthorized><Main/></UnAuthorized>} />
-              <Route path="/detail" element={<UnAuthorized><Detail/></UnAuthorized>} />
+              <Route path="/detail/:id" element={<UnAuthorized><Detail/></UnAuthorized>} />
               <Route path="/login" element={<Authorized><Login/></Authorized>} />
           </Routes>
       </BrowserRouter>

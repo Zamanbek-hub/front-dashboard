@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -9,7 +9,9 @@ import DoughnutChart from './doughnut_report/DoughnutChart';
 import LineChart from "./line_report/LineChart";
 import TableReport from "./table_report/TableReport";
 import Header from "../header/Header";
-import UploadModal from "./Upload/Upload";
+import UploadModal from "./file_uploader/Upload";
+import axios from "axios";
+import {useParams} from "react-router-dom";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,7 +24,27 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export default function Detail() {
-  return (
+    const MY_ROBOT_API = '/robot/';
+    const { id } = useParams();
+    const [robot, setRobot] = useState({});
+
+    const getMyRobot = () => {
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+        axios.get(MY_ROBOT_API, {headers: headers})
+            .then(res => {}).catch(err=> {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        getMyRobot();
+    }, []);
+
+
+    return (
       <div className="container-fluid">
           <Header />
           <UploadModal />

@@ -1,44 +1,65 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 const columns = [
     { field: 'id', headerName: 'ID'},
-    { field: 'firstName', headerName: 'First name', width: 500 },
-    { field: 'lastName', headerName: 'Last name', width: 500},
+    { field: 'iin', headerName: 'IIN', width: 200},
+    { field: 'full_name', headerName: 'Full name', width: 500 },
+    { field: 'status', headerName: 'Status', width: 500},
     {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
+        field: 'result',
+        headerName: 'Result',
         width: 500,
     },
     {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 400,
-        valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+        field: 'service_name',
+        headerName: 'Service Name',
+        width: 500,
     },
 ];
 
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-
 function TableReport() {
+    const ROBOT_REQUESTS_API = '/request/robot/';
+    const { id } = useParams();
+    const [requests, setRequests] = useState([]);
+
+    const getMyRequests = () => {
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+        axios.get(ROBOT_REQUESTS_API + `${id}`, {headers: headers})
+            .then(res => {
+                let counter = 1;
+                let arr = res['data'];
+                let requests = [];
+                arr.forEach(e => {
+                    requests.push({
+                        id: counter,
+                        iin: e['iin'],
+                        full_name: e['last_name'] + ' ' + e['first_name'],
+                        status: e['status'],
+                        result: e['result'],
+                        service_name: e['service_name'],
+                    })
+                    counter++;
+                })
+                setRequests(requests);
+            }).catch(err=> {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        getMyRequests();
+    }, []);
+
     return (
         <div style={{ height: 500, width: '100%' }}>
             <DataGrid
-                rows={rows}
+                rows={requests}
                 columns={columns}
             />
         </div>

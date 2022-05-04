@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -9,6 +9,9 @@ import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'jquery/dist/jquery.min';
 import "./Upload.css";
+import axios from "axios";
+import {useParams} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -25,13 +28,47 @@ const style = {
 };
 
 export default function UploadModal() {
+    const UPLOAD_FILE_API = '/request/bulk_create';
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [selectedFile, setSelectedFile] = useState();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [fileName, setFileName] = React.useState('Upload excel file')
+    const [fileName, setFileName] = React.useState('file_uploader excel or csv file')
 
     const handleUploadFile = (event) => {
+        setSelectedFile(event.target.files[0]);
         setFileName('Вы загрузили: ' + event.target.files[0].name)
+    };
+
+    const postUploadFile = (event) => {
+        handleClose()
+
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`,
+            "Content-Type": 'multipart/form-data',
+        }
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        axios.post(UPLOAD_FILE_API + `?robot_id=${id}`, formData, {headers: headers})
+            .then(res => {
+                alert('Успешно');
+                console.log(res);
+            }).catch(err=> {
+                if (err.response.request.status === 400 || err.response.request.status === 415){
+                    alert(err.response.data['detail']);
+                }
+                else{
+                    alert('Error');
+                }
+            console.log(err);
+        })
+
+        setFileName('file_uploader excel or csv file');
+
     }
 
     return (
@@ -52,11 +89,11 @@ export default function UploadModal() {
                     <Box sx={style}>
                         <div className="file-drop-area">
                             <FontAwesomeIcon className='file_upload_icon' icon={faArrowUpFromBracket} />
-                            <snap className="file-message">{fileName}</snap>
-                            <input className="file-input" type="file" onChange={handleUploadFile}/>
+                            <span className="file-message">{fileName}</span>
+                            <input className="file-input" type="file" accept='.xlsx, .csv' onChange={handleUploadFile}/>
                         </div>
                         <div className="file-send-area">
-                            <button className='btn btn-secondary file_upload_btn' type='submit' onClick={handleClose}>Send</button>
+                            <button className='btn btn-secondary file_upload_btn' type='submit' onClick={postUploadFile}>Send</button>
                         </div>
                     </Box>
                 </Fade>

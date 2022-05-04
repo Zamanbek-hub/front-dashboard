@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Header from "../header/Header";
+import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -19,20 +20,41 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, page) {
-  return { name, calories, fat, carbs, page };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, "/detail"),
-  createData('Ice cream sandwich', 237, 9.0, 37, "/detail"),
-  createData('Eclair', 262, 16.0, 24, "/detail"),
-  createData('Cupcake', 305, 3.7, 67, "/detail"),
-  createData('Gingerbread', 356, 16.0, 49, "/detail"),
-];
 
 export default function Main() {
-  return (
+    const MY_ROBOTS_API = '/robot/';
+    const [robots, setRobots] = useState([]);
+
+    const getMyRobots = () => {
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+        axios.get(MY_ROBOTS_API, {headers: headers})
+            .then(res => {
+                let arr = res['data'];
+                let robots = [];
+                arr.forEach(e => {
+                    robots.push({
+                        id: e['id'],
+                        name: e['name'],
+                        server_address: e['server_address'],
+                        state: e['state'],
+                        start_time: e['start_time'],
+                        end_time: e['end_time'],
+                    })
+                })
+                setRobots(robots);
+            }).catch(err=> {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        getMyRobots();
+    }, []);
+
+    return (
       <div className="container-fluid">
         <Header />
         <div className="container">
@@ -40,19 +62,23 @@ export default function Main() {
           <Table>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Robot</StyledTableCell>
-                <StyledTableCell align="right">Location</StyledTableCell>
-                <StyledTableCell align="right">Status</StyledTableCell>
-                <StyledTableCell align="right">More Details</StyledTableCell>
+                  <StyledTableCell>Robot</StyledTableCell>
+                  <StyledTableCell align="right">Server Address</StyledTableCell>
+                  <StyledTableCell align="right">State</StyledTableCell>
+                  <StyledTableCell align="right">Start Time</StyledTableCell>
+                  <StyledTableCell align="right">End Time</StyledTableCell>
+                  <StyledTableCell align="right">More Details</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">{row.name}</TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right"><a href={row.page} style={{color: 'black'}}>Profile</a></TableCell>
+              {robots.map((robot) => (
+                <TableRow key={robot.name}>
+                  <TableCell component="th" scope="row">{robot.name}</TableCell>
+                  <TableCell align="right">{robot.server_address}</TableCell>
+                  <TableCell align="right">{robot.state}</TableCell>
+                  <TableCell align="right">{robot.start_time}</TableCell>
+                  <TableCell align="right">{robot.end_time}</TableCell>
+                  <TableCell align="right"><a href={`detail/${robot.id}`} style={{color: 'black'}}>Profile</a></TableCell>
                 </TableRow>
               ))}
             </TableBody>

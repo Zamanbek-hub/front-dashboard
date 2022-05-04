@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    const LOGIN_API = 'authentication/token'
+    const LOGIN_API = '/authentication/token'
     const navigate = useNavigate();
 
     const login = event => {
