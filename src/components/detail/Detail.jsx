@@ -12,6 +12,7 @@ import Header from "../header/Header";
 import UploadModal from "./file_uploader/Upload";
 import axios from "axios";
 import {useParams} from "react-router-dom";
+import Starter from "./starter/Starter";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -47,7 +48,14 @@ export default function Detail() {
     return (
       <div className="container-fluid">
           <Header />
-          <UploadModal />
+          <Grid container spacing={2}>
+              <Grid item xs={10}>
+              </Grid>
+              <Grid item xs={2}>
+                  <Starter />
+                  <UploadModal/>
+              </Grid>
+          </Grid>
           <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                   <Grid item xs={4}>

@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUpFromBracket, faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'jquery/dist/jquery.min';
 import "./Upload.css";
@@ -71,9 +71,23 @@ export default function UploadModal() {
 
     }
 
+
     return (
-        <div>
-            <Button className='upload_modal_btn btn btn-block shadow-none mb-3 float-end text-capitalize font-normal font-weight-bold' onClick={handleOpen}>Upload New</Button>
+        <div style={{textAlign: "center"}}>
+            <FontAwesomeIcon
+                id='fileUploadIcon'
+                icon={faFileUpload}
+                onClick={handleOpen}
+                style={{
+                     boxShadow: "0 0 12px 6px rgba(0,0,0,.2)",
+                     cursor: "pointer",
+                     display: "block",
+                     marginLeft: "auto",
+                     marginRight: "auto",
+                     width: '40px',
+                     height: '40px',
+                 }} />
+            <p htmlFor='fileUploadIcon' className='mt-2'>Upload New Requests</p>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
