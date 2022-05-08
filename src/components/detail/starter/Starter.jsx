@@ -1,13 +1,57 @@
-import React, {useState} from 'react';
-import ToggleSwitch from '@trendmicro/react-toggle-switch';
+import React, {useEffect, useState} from 'react';
 import '@trendmicro/react-toggle-switch/dist/react-toggle-switch.css';
 import PlayPause from "./PlayPause";
+import axios from "axios";
+import {useParams} from "react-router-dom";
 
 function Starter() {
+    const ROBOT_STATE_API = '/robot_state/';
+    const { id } = useParams();
     const [state, setState] = useState({ showPlayButton: true });
 
-    const toggled = (value) => {
-        console.log(value)
+    const getRobotState = () => {
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+        axios.get(ROBOT_STATE_API + `${id}`, {headers: headers})
+            .then(res => {
+                if (res.data['state'] === 'play'){
+                    setState({showPlayButton: true})
+                } else if (res.data['state'] === 'stop') {
+                    setState({showPlayButton: false})
+                }
+            }).catch(err=> {
+                console.log(err);
+            })
+    }
+
+    useEffect(() => {
+        getRobotState();
+    }, []);
+
+    const setRobotState = () => {
+        setState({showPlayButton: !showPlayButton});
+
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+        const data = {
+            robot_id: id,
+            state: showPlayButton ? 'stop': 'play',
+        }
+
+        console.log(data);
+
+        axios.post(ROBOT_STATE_API, data, {headers: headers})
+            .then(res => {
+                if (res.data === false) {
+                    alert('Вышла неожиданная ошибка');
+                }
+            }).catch(err=> {
+            console.log(err);
+        })
     }
 
     const { showPlayButton } = state
@@ -16,7 +60,7 @@ function Starter() {
         <div style={{textAlign: 'right', float: "right"}}>
             <button
                 id='play-pause'
-                onClick={() => setState({ showPlayButton: !showPlayButton })}
+                onClick={setRobotState}
                 style={{
                     border: "none",
                     backgroundColor: showPlayButton ? "rgb(0, 128, 0, 0.6)" : "rgb(255, 0, 0, 0.8)",
